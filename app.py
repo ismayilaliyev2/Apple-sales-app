@@ -29,7 +29,6 @@ if st.button("Predict Performance"):
         tier1 = dtree1.predict(input_scaled)[0]
 
         # Display results
-        st.success(f"Predicted Cluster: {cluster}")
         st.info(f"Predicted Performance Tier 1: {tier1}")
 
     except Exception as e:
