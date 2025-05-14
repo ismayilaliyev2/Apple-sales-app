@@ -7,10 +7,17 @@ import joblib
 scaler = joblib.load("scaler.pkl")
 dtree1 = joblib.load("dtree_classifier.pkl")
 
+# Tier label mapping
+tier_labels = {
+    0: "Low Performance",
+    1: "Medium Performance",
+    2: "High Performance"
+}
+
 # Streamlit app UI
 st.set_page_config(page_title="Apple Sales Classifier", layout="centered")
 st.title("\U0001F34E Apple Sales Performance Classifier")
-st.markdown("Enter Apple product sales data below to predict cluster and performance tiers.")
+st.markdown("Enter Apple product sales data below to performance tiers.")
 
 # User inputs
 iphone = st.number_input("iPhone Sales (in million units)", min_value=0.0, step=0.1)
@@ -29,7 +36,7 @@ if st.button("Predict Performance"):
         tier1 = dtree1.predict(input_scaled)[0]
 
         # Display results
-        st.info(f"Predicted Performance Tier 1: {tier1}")
+        st.info(f"Predicted Performance Tier 1: {tier_labels.get(tier1, 'Unknown')}")
 
     except Exception as e:
         st.error(f"Prediction failed: {str(e)}")
